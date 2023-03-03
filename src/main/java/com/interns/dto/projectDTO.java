@@ -9,7 +9,11 @@ public class projectDTO {
 
     private MentorDTO mentorDTO;
 
+    public projectDTO(){
+        super();
+    }
     public projectDTO(Integer projectId, String projectName, LocalDate releaseDate, MentorDTO mentorDTO) {
+        super();
         this.projectId = projectId;
         this.projectName = projectName;
         this.releaseDate = releaseDate;

@@ -5,7 +5,11 @@ public class MentorDTO {
     private String mentorName;
     private Integer numberOfProjectMentored;
 
+    public MentorDTO(){
+        super();
+    }
     public MentorDTO(Integer mentorId, String mentorName, Integer numberOfProjectMentored) {
+        super();
         this.mentorId = mentorId;
         this.mentorName = mentorName;
         this.numberOfProjectMentored = numberOfProjectMentored;

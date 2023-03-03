@@ -1,5 +1,6 @@
 package com.interns.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -10,6 +11,7 @@ public class Mentor {
     @Id
     private Integer mentorId;
     private String mentorName;
+    @Column(name = "projects_mentored")
     private Integer numberOfProjectMentored;
 
     public Integer getMentorId() {
