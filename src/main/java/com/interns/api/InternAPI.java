@@ -42,4 +42,10 @@ public class InternAPI {
         return new ResponseEntity<>(successMessage,HttpStatus.OK);
     }
 
+    @DeleteMapping("/project/{projectId}")
+    public ResponseEntity<String> deleteProject(@PathVariable Integer projectId) throws InternException{
+        projectAllocationService.deleteProject(projectId);
+        String successMessage = environment.getProperty("API.PROJECT_DELETE_SUCCESS");
+        return new ResponseEntity<>(successMessage,HttpStatus.OK);
+    }
 }

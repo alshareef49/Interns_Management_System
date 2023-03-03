@@ -69,4 +69,15 @@ public class ProjectAllocationServiceImpl implements ProjectAllocationService{
         project.setMentor(mentor);
         mentor.setNumberOfProjectMentored(mentor.getNumberOfProjectMentored()+1);
     }
+
+    @Override
+    public void deleteProject(Integer projectId) throws InternException{
+        Optional<Project> optional = projectRepository.findById(projectId);
+        Project project = optional.orElseThrow(()-> new InternException("Service.PROJECT_NOT_FOUND"));
+        if(project.getMentor()!=null){
+            Mentor mentor = project.getMentor();
+            mentor.setNumberOfProjectMentored(mentor.getNumberOfProjectMentored()-1);
+        }
+        projectRepository.delete(project);
+    }
 }
