@@ -2,17 +2,17 @@ package com.interns.dto;
 
 import java.time.LocalDate;
 
-public class projectDTO {
+public class ProjectDTO {
     private Integer projectId;
     private String projectName;
     private LocalDate releaseDate;
 
     private MentorDTO mentorDTO;
 
-    public projectDTO(){
+    public ProjectDTO(){
         super();
     }
-    public projectDTO(Integer projectId, String projectName, LocalDate releaseDate, MentorDTO mentorDTO) {
+    public ProjectDTO(Integer projectId, String projectName, LocalDate releaseDate, MentorDTO mentorDTO) {
         super();
         this.projectId = projectId;
         this.projectName = projectName;

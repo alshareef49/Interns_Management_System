@@ -1,15 +1,19 @@
 package com.interns.Service;
 
 import com.interns.dto.MentorDTO;
+import com.interns.dto.ProjectDTO;
 import com.interns.entity.Mentor;
+import com.interns.entity.Project;
 import com.interns.exception.InternException;
 import com.interns.repository.MentorRepository;
+import com.interns.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,6 +21,8 @@ public class ProjectAllocationServiceImpl implements ProjectAllocationService{
 
     @Autowired
     private MentorRepository mentorRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Override
     public List<MentorDTO> getAllMentor(Integer numberOfProjectMentored) throws InternException{
@@ -33,5 +39,21 @@ public class ProjectAllocationServiceImpl implements ProjectAllocationService{
             throw new InternException("Service.MENTOR_NOT_FOUND");
         }
         return mentorDTOs;
+    }
+
+    @Override
+    public Integer allocateProject(ProjectDTO projectDTO) throws InternException{
+        Optional<Mentor> optional = mentorRepository.findById(projectDTO.getMentorDTO().getMentorId());
+        Mentor mentor = optional.orElseThrow(()-> new InternException("Service.MENTOR_NOT_FOUND"));
+        if(mentor.getNumberOfProjectMentored()>=3){
+            throw new InternException("Service.CANNOT_ALLOCATE_PROJECT");
+        }
+        Project project = new Project();
+        project.setProjectName(projectDTO.getProjectName());
+        project.setReleaseDate(projectDTO.getReleaseDate());
+        project.setMentor(mentor);
+        projectRepository.save(project);
+        mentor.setNumberOfProjectMentored(mentor.getNumberOfProjectMentored()+1);
+        return project.getProjectId();
     }
 }
