@@ -56,4 +56,17 @@ public class ProjectAllocationServiceImpl implements ProjectAllocationService{
         mentor.setNumberOfProjectMentored(mentor.getNumberOfProjectMentored()+1);
         return project.getProjectId();
     }
+
+    @Override
+    public void updateProjectMentor(Integer projectId,Integer mentorId) throws InternException{
+        Optional<Mentor> optional = mentorRepository.findById(mentorId);
+        Mentor mentor = optional.orElseThrow(()-> new InternException("Service.MENTOR_NOT_FOUND"));
+        Optional<Project> optional1 = projectRepository.findById(projectId);
+        Project project = optional1.orElseThrow(()-> new InternException("Service.PROJECT_NOT_FOUND"));
+        if(mentor.getNumberOfProjectMentored()>=3){
+            throw new InternException("Service.CANNOT_ALLOCATE_PROJECT");
+        }
+        project.setMentor(mentor);
+        mentor.setNumberOfProjectMentored(mentor.getNumberOfProjectMentored()+1);
+    }
 }

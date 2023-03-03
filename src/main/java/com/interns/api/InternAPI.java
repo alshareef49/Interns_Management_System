@@ -35,4 +35,11 @@ public class InternAPI {
         return new ResponseEntity<>(successMessage,HttpStatus.CREATED);
     }
 
+    @PutMapping("/project/{projectId}/{mentorId}")
+    public ResponseEntity<String> updateProjectMentor(@PathVariable Integer projectId,@PathVariable Integer mentorId) throws InternException{
+        projectAllocationService.updateProjectMentor(projectId,mentorId);
+        String successMessage = environment.getProperty("API.PROJECT_UPDATE_SUCCESS");
+        return new ResponseEntity<>(successMessage,HttpStatus.OK);
+    }
+
 }
