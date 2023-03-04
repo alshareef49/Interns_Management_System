@@ -42,6 +42,7 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(errorInfo,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler({MethodArgumentNotValidException.class,ConstraintViolationException.class})
     public ResponseEntity<ErrorInfo> validatorExceptionHandler(Exception exception){
         LOGGER.error(exception.getMessage(),exception);
         String errorMsg;

@@ -1,6 +1,14 @@
 package com.interns.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class MentorDTO {
+
+    @Min(value = 1000,message = "{mentor.mentorid.invalid}")
+    @Max(value = 9999,message = "{mentor.mentorid.invalid}")
+    @NotNull(message = "{mentor.mentorid.absent}")
     private Integer mentorId;
     private String mentorName;
     private Integer numberOfProjectMentored;

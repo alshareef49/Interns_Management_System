@@ -1,12 +1,19 @@
 package com.interns.dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 public class ProjectDTO {
     private Integer projectId;
+    @NotNull(message = "{project.projectname.absent}")
     private String projectName;
+    @NotNull(message = "{project.releasedate.absent}")
     private LocalDate releaseDate;
 
+    @Valid
+    @NotNull(message = "{project.mentor.absent}")
     private MentorDTO mentorDTO;
 
     public ProjectDTO(){

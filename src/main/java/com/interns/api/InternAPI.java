@@ -5,6 +5,7 @@ import com.interns.dto.MentorDTO;
 import com.interns.dto.ProjectDTO;
 import com.interns.exception.InternException;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class InternAPI {
     }
 
     @PostMapping("/project")
-    public ResponseEntity<String> projectAllocate(@RequestBody ProjectDTO projectDTO) throws InternException{
+    public ResponseEntity<String> projectAllocate(@Valid @RequestBody ProjectDTO projectDTO) throws InternException{
         Integer projectId = projectAllocationService.allocateProject(projectDTO);
         String successMessage = environment.getProperty("API.ALLOCATION_SUCCESS")+": "+projectId;
         return new ResponseEntity<>(successMessage,HttpStatus.CREATED);
