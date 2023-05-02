@@ -1,1 +1,1 @@
-# Interns_Management_System
+# Interns Management System
